@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Incident Management System - Active Incidents</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#147A70", // Teal primary from the screenshot
+              "background-light": "#F5F7FA",
+              "background-dark": "#0F172A",
+            },
+            fontFamily: {
+              display: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+            },
+          },
+        },
+      };
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24 }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex">
+<aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex-shrink-0 hidden lg:flex flex-col">
+<div class="p-6">
+<h1 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Incident management by FAB</h1>
+<p class="text-[10px] uppercase tracking-wider text-slate-400 dark:text-slate-500 font-semibold mt-1">Incident Orchestration</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center px-3 py-2 text-sm font-medium bg-primary text-white rounded-md" href="#">
+<span class="material-symbols-outlined mr-3">warning</span> Incidents
+            </a>
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">menu_book</span> Knowledge Base
+            </a>
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">assignment</span> Jira
+            </a>
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">book</span> Confluence
+            </a>
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">hub</span> ServiceNow
+            </a>
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">sync_alt</span> Integration
+            </a>
+</nav>
+<div class="px-4 py-6 border-t border-slate-200 dark:border-slate-800 space-y-1">
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">settings</span> Settings
+            </a>
+<a class="flex items-center px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 rounded-md hover:bg-slate-50 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined mr-3">notifications</span> Notifications
+            </a>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-w-0">
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between px-8">
+<div class="flex items-center space-x-4">
+<h2 class="text-lg font-semibold text-slate-800 dark:text-white">Incidents List</h2>
+<span class="inline-flex items-center text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+<span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
+                    Last Seen: 2m Ago
+                </span>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative max-w-xs hidden sm:block">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-400 text-sm">search</span>
+</span>
+<input class="block w-64 pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-md leading-5 bg-slate-50 dark:bg-slate-800 text-sm placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Search incidents, logs, or services..." type="text"/>
+</div>
+<div class="flex items-center space-x-3 text-slate-500 dark:text-slate-400">
+<button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+<div class="flex items-center">
+<img alt="Alex Rivera Profile" class="h-8 w-8 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArHY6h-qDuB_RL4VG1Z2o5mUE_v4DORR3d7kaI6t_zupts55qy1gsKW-TDwxdY8gFN-wlHHJ83xAsPWLLKn9ASZiXzrW76su5VVxJTbqw933dsIuweqfxQnCCuerCRogftMGcPZhp0CKBD5XJy49E8MbbfjpEgF8ZXtstf2b0P8IKMQuscYqLYlg6uGpR3C1havkwBYgpQiVYqwWXcsauf0PTiAZLWZQpaLBcjsMZxIcxklpzrAstcgPBLIWRyPdZHi0UGriN82hyE"/>
+<span class="ml-3 text-sm font-medium text-slate-700 dark:text-slate-200">Alex Rivera</span>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-6">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Active Incidents</h2>
+<p class="text-slate-500 dark:text-slate-400 mt-1">Real-time monitoring of active operational disruptions and resolution progress across the enterprise stack.</p>
+</div>
+<button class="inline-flex items-center px-4 py-2 border border-slate-200 dark:border-slate-700 rounded-md text-sm font-medium text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm transition-colors">
+<span class="material-symbols-outlined text-[18px] mr-2">download</span>
+                    Export CSV
+                </button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+<div class="space-y-1.5">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Status</label>
+<div class="relative">
+<select class="appearance-none block w-full pl-3 pr-10 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>All Statuses</option>
+<option>Active</option>
+<option>On Hold</option>
+<option>Resolved</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Severity</label>
+<div class="relative">
+<select class="appearance-none block w-full pl-3 pr-10 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>All Severities</option>
+<option>High</option>
+<option>Medium</option>
+<option>Low</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Date Range</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-slate-400 text-[20px]">calendar_today</span>
+<input class="block w-full pl-10 pr-3 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" type="text" value="Oct 24, 2023 - Oct 31, 2023"/>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Filter by Group</label>
+<div class="relative">
+<select class="appearance-none block w-full pl-3 pr-10 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>All Groups</option>
+<option>Engineering</option>
+<option>Operations</option>
+<option>Security</option>
+<option>Support</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Assigned To</label>
+<div class="relative">
+<select class="appearance-none block w-full pl-3 pr-10 py-2.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+<option>All Assignees</option>
+<option>Jordan Smith</option>
+<option>Sarah Chen</option>
+<option>Marcus Wong</option>
+<option>Elena Rodriguez</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-slate-400 pointer-events-none">expand_more</span>
+</div>
+</div><div>
+<button class="w-full py-2.5 px-4 bg-primary text-white font-medium rounded-md hover:bg-teal-700 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            Apply Filters
+                        </button>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+<th class="px-6 py-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Incident ID</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Title</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest text-center">Status</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Severity</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Assigned Person</th>
+<th class="px-6 py-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Jira</th><th class="px-6 py-4 text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest text-right">Time Created</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="file:///C:/Users/sanjai.g/OneDrive%20-%20Wolters%20Kluwer/Desktop/Incident%20page.html" 
+     target="_blank">INC3482496</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">Database Cluster Connectivity Timeout</div>
+<div class="text-[11px] text-slate-400 mt-0.5">AWS-East-1 • PostgreSQL Cluster 04</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 uppercase tracking-tighter">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span> High
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Jordan Smith" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiYIlDxhBDW_EGB7eKyqlR01m6YLtKjWCLbzYNjTmScknXj_xDUrYPu6wec7s0VjP115GZeLzj7-dvWCyO0k1o7PsaA8CWYMi7kfRvbHCC0wnztakd9UdpmNMtYfbYcYwBQ-2bV3T10D8VuKXfuyYbM_SYGVXqcmjfaTBnMvoZr5lJtmW9EFuxzLdyOSqSEHzcfpgxU4LbgWV-sIulYn8TpkIdZa9USrHDjBgBj0ZMqwCk8i6PXCg6CCHcMnpf06FpgQPVzVRmxIVL"/>
+<span class="ml-2 text-xs font-medium">Jordan Smith</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap">
+  <a class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 
+             dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight"
+     href="https://jira.wolterskluwer.io/jira/browse/IOPS-10805" 
+     target="_blank">
+     JIRA-8921
+  </a>
+</td>
+<td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">
+  2 mins ago
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="#">INC3482491</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">Redis Cache Invalidation Loop</div>
+<div class="text-[11px] text-slate-400 mt-0.5">PROD-Core • Auth Service</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 uppercase tracking-tighter">On Hold</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span> Medium
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Sarah Chen" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsXdmqu-5q7RpGauOV1rvA2TzEyGcyOKHOrXGQEVMfOdt5oM62ONIE9WFFk5d69HPtKrP7dDk8KPe_rns-rbUBddw0imVe1jGrwqKoD-P6csnpVTgf6li5weIovUKLzprVTBue9fywnXrIft9YqHTiv_qSZ1MgG30uox5c46hcFf9k7ojDhOBXfpORIimaCDJBruFUr_wckRbpVwsLeCtLoDkzyPx70fZkRH21HCj-8-PwzDyHKXtRGM68ulTfVtnVwM7pTZIO8QS3"/>
+<span class="ml-2 text-xs font-medium">Sarah Chen</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap"><span class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight">JIRA-4432</span></td><td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">14 mins ago</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="#">INC3482488</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">API Gateway Latency Spike</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Edge • Global Traffic Manager</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 uppercase tracking-tighter">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span> High
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Marcus Wong" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg-JnxAokCNUChL72SqeNMvnxrZjqHsjLZaSfOQ6r8P8r7LfMo6PD7f-XXbl-Mq1w20UgunWoOZQeqau7oxy-IMI-GNXV5uitQmCAAA2gibL7rS5uqvStziSGJvNlcORdJZk8kA36a28Q1753c51Yoam4TU92Ncg-dotj_tCExIFsAwQUrALL0Npl9Sn-bfTRxK9dYW_bC66CaanrlNaJvWmRgjSaihOfNc8Gzb5qjZ2sg3oel_zCEJ9br_0700xcpRt1M6AOcp8Pd"/>
+<span class="ml-2 text-xs font-medium">Marcus Wong</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap"><span class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight">JIRA-7721</span></td><td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">28 mins ago</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="#">INC3482485</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">Storage Volume Read-Only Error</div>
+<div class="text-[11px] text-slate-400 mt-0.5">SAN-02 • Block Storage Cluster</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 uppercase tracking-tighter">On Hold</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span> High
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Elena Rodriguez" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5YLYeF1z3yke5j-DpudZ4Yu7Pw_h11uSzsD1PL_nZR9h8jOdhSoYiWWbmmzvAIf8dcGjKNkCMbZnc3EtiJsfBEYPwPOuZnPCHlqxQI03rCP4yCXo44tPrAzUcYpBtYp-23vEO_MCPU-VOO_hZFJS5xG4JvbWLegPuSoltnQK0f6HTXmkxmwnpSDE9zk-tXGhnjFh_BfmltQWuKv_5iYYFfJd4pBKpDx5kMw6pkmBxboAaBQXYDyx6vaCzQJZjyVQAxo80ubq55pfi"/>
+<span class="ml-2 text-xs font-medium">Elena Rodriguez</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap"><span class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight">JIRA-1092</span></td><td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">45 mins ago</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="#">INC3482480</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">Payment Gateway Webhook Timeout</div>
+<div class="text-[11px] text-slate-400 mt-0.5">External • Stripe Integration</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400 uppercase tracking-tighter">Resolved</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span> Medium
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Jordan Smith" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQDD6MEAx7jubXodnBSJy-7Gxc21po6DlM6xTVWBL4kE4bp0ETP5vwn4KnHh_nMywjEvT-YsgKTzg_fdyCM5RkwsQISYz-OmiInCQ5E1dd_FoF1VslCjq31N2ByT3S-3zg-UPAQPvoqkjg9s1kJWPsOdSC9mMvtwocz4m1VHg93wj_T2vH4-cxwdRSQxapNBm7d7_IUj_BJtkid3Z_r4lbiLYyvY4vw-FtxvKIPDg8bPyZhSDeaVP4zYY1N5OxCHRrYYV2ItVtkvJp"/>
+<span class="ml-2 text-xs font-medium">Jordan Smith</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap"><span class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight">JIRA-6643</span></td><td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">1 hr ago</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="#">INC3482476</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">Kubernetes Node Pressure Alert</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Region-West-2 • Cluster K8S-09</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 uppercase tracking-tighter">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span> High
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Sarah Chen" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCChQBD8LzcTklZwmJwh1N-TtCgJRI8LaVnOJ6QynZDg-mI4EU7nIiK5SwyeAcdW2g3gOOTXhQfKjlZajl1rRmeg3VXeZAC2PYaPSqMxz8KBu2RqnAXIJI5ckztWyMzRH5rIOecVBTIQqjQikHBeeuEWjWCK2bGs9ZlddbQNRqY0xqP2l-XoBN8SfKMt1dUychSfyQDEaS2O9bwg5TzujDZBl-ynEh1lXkDvaBwFBl2Af2uoHsBS36MlWG9D9mbpR9L0c9du19pwLJ_"/>
+<span class="ml-2 text-xs font-medium">Sarah Chen</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap"><span class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight">JIRA-3312</span></td><td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">1.5 hrs ago</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="#">INC3482472</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">DNS Resolution Failure on Internal VPC</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Corp-Network • VPC-Peering</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 uppercase tracking-tighter">On Hold</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium text-slate-500">
+<span class="w-2 h-2 rounded-full bg-slate-400 mr-2"></span> Low
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Marcus Wong" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtNbpwV09bWPC7DWkNgWMo_yPWmTp0r1Wax2_u1x5nrrTXC5_iHnFl5GeW8PfGhIXCfawjRilxNPFoP2St9vUP-66EWxPvwOZk_j358g8oAUF737iK-dppAvTwq3EGlavKLG_cVbXXwESyEll70airVLefe7e8FLlb1jjjBiMHHw8SBi4bvp58sjQ5hMQcW0XDxAYyvaSFtZwCI2OnFaQ1H999B75QSbXerJYuyDpS4zMl_2PZnV9IbbWR2LiMUF9yWv4ofS_K7U2A"/>
+<span class="ml-2 text-xs font-medium">Marcus Wong</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap"><span class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight">JIRA-9021</span></td><td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">2 hrs ago</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+<td class="px-6 py-5 whitespace-nowrap"><a class="text-primary font-bold text-xs hover:underline" href="#">INC3482468</a></td>
+<td class="px-6 py-5">
+<div class="text-sm font-bold text-slate-800 dark:text-slate-100">Elasticsearch Heap Usage Threshold</div>
+<div class="text-[11px] text-slate-400 mt-0.5">Logging • Cluster ELK-Prod</div>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="inline-flex px-2.5 py-0.5 rounded-sm text-[10px] font-bold bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 uppercase tracking-tighter">Active</span>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center text-sm font-medium">
+<span class="w-2 h-2 rounded-full bg-orange-400 mr-2"></span> Medium
+                                    </div>
+</td>
+<td class="px-6 py-5">
+<div class="flex items-center">
+<img alt="Elena Rodriguez" class="h-6 w-6 rounded-full border border-slate-200 dark:border-slate-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRfaXzzf8nIC2DcuQWX7G3zfrcKVUEnZLLRTq-bRnZgK8MJgEHSfJ-cUD58elpTow1QULdkyDyj_X6Ne5mB2hDdFK6tTc-_R7mv-InxvYxxYQAeW_gA-EFM_Ojo2GW2QE99V5jsYSlKephDbh_FCFJ7AlFVxFF5Wai8WhUmJe75jrEKujP32nfuXpxpKWqPWkBmNj3BwDmTwsKBEabTdppHdWXAYWmclt7vgIxTTJ8aYt_w3DB-MZ4xTdJ7AmE3GpU7MRn1kevdFlw"/>
+<span class="ml-2 text-xs font-medium">Elena Rodriguez</span>
+</div>
+</td>
+<td class="px-6 py-5 whitespace-nowrap"><span class="inline-flex px-2 py-0.5 rounded bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400 text-[10px] font-bold tracking-tight">JIRA-4456</span></td><td class="px-6 py-5 text-right text-xs text-slate-500 whitespace-nowrap">3 hrs ago</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex items-center justify-between">
+<div class="text-sm text-slate-500 dark:text-slate-400">
+                        Showing <span class="font-medium text-slate-700 dark:text-slate-200">1</span> to <span class="font-medium text-slate-700 dark:text-slate-200">8</span> of <span class="font-medium text-slate-700 dark:text-slate-200">24</span> incidents
+                    </div>
+<div class="flex items-center space-x-1">
+<button class="p-2 border border-slate-200 dark:border-slate-700 rounded-md text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="px-3 py-1 bg-primary text-white text-sm font-medium rounded-md">1</button>
+<button class="px-3 py-1 text-slate-600 dark:text-slate-400 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md">2</button>
+<button class="px-3 py-1 text-slate-600 dark:text-slate-400 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 rounded-md">3</button>
+<button class="p-2 border border-slate-200 dark:border-slate-700 rounded-md text-slate-600 hover:bg-slate-50 dark:hover:bg-slate-800">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
